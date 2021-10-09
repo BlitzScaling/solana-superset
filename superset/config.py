@@ -149,7 +149,7 @@ SUPERSET_DASHBOARD_PERIODICAL_REFRESH_LIMIT = 0
 SUPERSET_DASHBOARD_PERIODICAL_REFRESH_WARNING_MESSAGE = None
 
 SUPERSET_DASHBOARD_POSITION_DATA_LIMIT = 65535
-CUSTOM_SECURITY_MANAGER = None
+# CUSTOM_SECURITY_MANAGER = None
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 # ---------------------------------------------------------
 
@@ -290,7 +290,7 @@ AUTH_TYPE = AUTH_DB
 # Grant public role the same set of permissions as for a selected builtin role.
 # This is useful if one wants to enable anonymous users to view
 # dashboards. Explicit grant on specific datasets is still required.
-PUBLIC_ROLE_LIKE: Optional[str] = None
+PUBLIC_ROLE_LIKE: Optional[str] = "Gamma"
 
 # ---------------------------------------------------
 # Babel config for translations
@@ -1270,6 +1270,19 @@ MENU_HIDE_USER_INFO = False
 # SQLalchemy link doc reference
 SQLALCHEMY_DOCS_URL = "https://docs.sqlalchemy.org/en/13/core/engines.html"
 SQLALCHEMY_DISPLAY_TEXT = "SQLAlchemy docs"
+
+#let's add our custom security manager
+from superset.security.security import CustomSecurityManager
+CUSTOM_SECURITY_MANAGER = CustomSecurityManager
+
+# if DASHBOARD_TEMPLATE_ID is set, a copy of the
+# dashboard will be created and then he/she will
+# be redirected to it.
+# Otherwise, he/she will be redirected to the welcome page.
+DEFAULT_WELCOME_DASHBOARD = '/superset/welcome'
+
+LOGIN_WITH_TOKEN = True
+TOKEN_API_URL = "http://172.20.243.122:5000/"
 
 # -------------------------------------------------------------------
 # *                WARNING:  STOP EDITING  HERE                    *
