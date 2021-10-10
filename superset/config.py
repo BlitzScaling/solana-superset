@@ -1282,7 +1282,7 @@ CUSTOM_SECURITY_MANAGER = CustomSecurityManager
 DEFAULT_WELCOME_DASHBOARD = '/superset/welcome'
 
 LOGIN_WITH_TOKEN = True
-TOKEN_API_URL = "http://172.20.243.122:5000/"
+TOKEN_API_URL = "superset-login-token.dev.svc.cluster.local:5000/"
 
 # -------------------------------------------------------------------
 # *                WARNING:  STOP EDITING  HERE                    *
