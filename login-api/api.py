@@ -8,6 +8,9 @@ users = [
         "token": "a",
         "user_info": {
             "username": "public_test",
+            "first_name": "Publica",
+            "last_name": "Test",
+            "email": "public@example.com",
         }
     },
     {
