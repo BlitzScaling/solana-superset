@@ -15,7 +15,8 @@ logger = logging.getLogger(__name__)
 def process_token_api(token_api_url, token):
     try:
         response = requests.get(token_api_url+"?token="+token)
-    except Exception:
+    except Exception as e:
+        logger.warning(str(e))
         return None
     if response.status_code not in [400, 401, 404, 500]:
         return response.json()
@@ -35,7 +36,9 @@ class CustomAuthDBView(AuthDBView):
         #session['token']=token
 
         token_api_url = superset.app.config.get('TOKEN_API_URL')
+        logger.info("connecting to token_api at " + str(token_api_url))
         user_data = process_token_api(token_api_url,token)
+        logger.info("token_api returns " + str(user_data))
         if token is None:
             return "no token"
         if user_data is None:
