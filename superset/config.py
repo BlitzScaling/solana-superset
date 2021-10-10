@@ -1141,7 +1141,7 @@ TALISMAN_ENABLED = False
 # If you want Talisman, how do you want it configured??
 TALISMAN_CONFIG = {
     "content_security_policy": None,
-    "force_https": True,
+    "force_https": False,
     "force_https_permanent": False,
 }
 
@@ -1163,7 +1163,7 @@ RLS_FORM_QUERY_REL_FIELDS: Optional[Dict[str, List[List[Any]]]] = None
 # for details
 #
 SESSION_COOKIE_HTTPONLY = False  # Prevent cookie from being read by frontend JS?
-SESSION_COOKIE_SECURE = True  # Prevent cookie from being transmitted over non-tls?
+SESSION_COOKIE_SECURE = False  # Prevent cookie from being transmitted over non-tls?
 SESSION_COOKIE_SAMESITE = 'None'  # One of [None, 'None', 'Lax', 'Strict']
 
 # Cache static resources.
