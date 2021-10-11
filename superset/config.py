@@ -154,7 +154,7 @@ SUPERSET_DASHBOARD_PERIODICAL_REFRESH_LIMIT = 0
 SUPERSET_DASHBOARD_PERIODICAL_REFRESH_WARNING_MESSAGE = None
 
 SUPERSET_DASHBOARD_POSITION_DATA_LIMIT = 65535
-CUSTOM_SECURITY_MANAGER = None
+# CUSTOM_SECURITY_MANAGER = None
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 # ---------------------------------------------------------
 
@@ -191,7 +191,7 @@ SQLALCHEMY_ENCRYPTED_FIELD_TYPE_ADAPTER = SQLAlchemyUtilsAdapter
 QUERY_SEARCH_LIMIT = 1000
 
 # Flask-WTF flag for CSRF
-WTF_CSRF_ENABLED = True
+WTF_CSRF_ENABLED = False
 
 # Add endpoints that need to be exempt from CSRF protection
 WTF_CSRF_EXEMPT_LIST = ["superset.views.core.log", "superset.charts.api.data"]
@@ -269,7 +269,7 @@ AUTH_TYPE = AUTH_DB
 # AUTH_ROLE_ADMIN = 'Admin'
 
 # Uncomment to setup Public role name, no authentication needed
-# AUTH_ROLE_PUBLIC = 'Public'
+AUTH_ROLE_PUBLIC = 'Public'
 
 # Will allow user self registration
 # AUTH_USER_REGISTRATION = True
@@ -291,7 +291,7 @@ AUTH_TYPE = AUTH_DB
 # Grant public role the same set of permissions as for a selected builtin role.
 # This is useful if one wants to enable anonymous users to view
 # dashboards. Explicit grant on specific datasets is still required.
-PUBLIC_ROLE_LIKE: Optional[str] = None
+PUBLIC_ROLE_LIKE: Optional[str] = 'Gamma'
 
 # ---------------------------------------------------
 # Babel config for translations
@@ -1131,9 +1131,9 @@ RLS_FORM_QUERY_REL_FIELDS: Optional[Dict[str, List[List[Any]]]] = None
 # See https://flask.palletsprojects.com/en/1.1.x/security/#set-cookie-options
 # for details
 #
-SESSION_COOKIE_HTTPONLY = True  # Prevent cookie from being read by frontend JS?
+SESSION_COOKIE_HTTPONLY = False  # Prevent cookie from being read by frontend JS?
 SESSION_COOKIE_SECURE = False  # Prevent cookie from being transmitted over non-tls?
-SESSION_COOKIE_SAMESITE = "Lax"  # One of [None, 'None', 'Lax', 'Strict']
+SESSION_COOKIE_SAMESITE = None  # One of [None, 'None', 'Lax', 'Strict']
 
 # Cache static resources.
 SEND_FILE_MAX_AGE_DEFAULT = int(timedelta(days=365).total_seconds())
@@ -1239,6 +1239,19 @@ MENU_HIDE_USER_INFO = False
 # SQLalchemy link doc reference
 SQLALCHEMY_DOCS_URL = "https://docs.sqlalchemy.org/en/13/core/engines.html"
 SQLALCHEMY_DISPLAY_TEXT = "SQLAlchemy docs"
+
+#let's add our custom security manager
+from superset.security.security import CustomSecurityManager
+CUSTOM_SECURITY_MANAGER = CustomSecurityManager
+
+# if DASHBOARD_TEMPLATE_ID is set, a copy of the
+# dashboard will be created and then he/she will
+# be redirected to it.
+# Otherwise, he/she will be redirected to the welcome page.
+DEFAULT_WELCOME_DASHBOARD = '/superset/welcome'
+
+LOGIN_WITH_TOKEN = True
+TOKEN_API_URL = "http://superset-login-token.dev.svc.cluster.local:5000/"
 
 # -------------------------------------------------------------------
 # *                WARNING:  STOP EDITING  HERE                    *
