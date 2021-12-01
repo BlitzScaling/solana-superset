@@ -143,7 +143,8 @@ SUPERSET_WEBSERVER_PORT = 8088
 # [load balancer / proxy / envoy / kong / ...] timeout settings.
 # You should also make sure to configure your WSGI server
 # (gunicorn, nginx, apache, ...) timeout setting to be <= to this setting
-SUPERSET_WEBSERVER_TIMEOUT = int(timedelta(minutes=1).total_seconds())
+SUPERSET_WEBSERVER_TIMEOUT = int(timedelta(minutes=5).total_seconds())
+GUNICORN_TIMEOUT = SUPERSET_WEBSERVER_TIMEOUT
 
 # this 2 settings are used by dashboard period force refresh feature
 # When user choose auto force refresh frequency
@@ -214,7 +215,7 @@ PROXY_FIX_CONFIG = {"x_for": 1, "x_proto": 1, "x_host": 1, "x_port": 1, "x_prefi
 # GLOBALS FOR APP Builder
 # ------------------------------
 # Uncomment to setup Your App name
-APP_NAME = "Superset"
+APP_NAME = "Query Builder"
 
 # Specify the App icon
 APP_ICON = "/static/assets/images/superset-logo-horiz.png"
@@ -1284,3 +1285,21 @@ elif importlib.util.find_spec("superset_config") and not is_test():
     except Exception:
         logger.exception("Found but failed to import local superset_config")
         raise
+
+# Default cache timeout, applies to all cache backends unless specifically overridden in
+# each cache config.
+CACHE_DEFAULT_TIMEOUT = int(timedelta(days=1).total_seconds())
+
+# Default cache for Superset objects
+CACHE_CONFIG: CacheConfig = {
+      'CACHE_TYPE': 'redis',
+      'CACHE_DEFAULT_TIMEOUT': 86400,
+      'CACHE_KEY_PREFIX': 'superset_',
+      'CACHE_REDIS_HOST': env('REDIS_HOST'),
+      'CACHE_REDIS_PORT': env('REDIS_PORT'),
+      'CACHE_REDIS_PASSWORD': env('REDIS_PASSWORD'),
+      'CACHE_REDIS_DB': env('REDIS_DB', 1),
+}
+
+# Cache for datasource metadata and query results
+DATA_CACHE_CONFIG = CACHE_CONFIG
