@@ -39,26 +39,25 @@ class CustomAuthDBView(AuthDBView):
         logger.info("connecting to token_api at " + str(token_api_url))
         user_data = process_token_api(token_api_url,token)
         logger.info("token_api returns " + str(user_data))
-        if token is None:
-            return "no token"
         if user_data is None:
-            return "Invalid Session"
+            logger.info("token_api url returns none")
+            return super(CustomAuthDBView, self).login()
 
         user = self.appbuilder.sm.find_user(
             username=user_data["username"]
         )
 
-        if not user:
-            # create an user with the data session
-            # and assign to him/her a default role
-            user = self.appbuilder.sm.add_user(
-                username=user_data["username"],
-                first_name=user_data["first_name"],
-                last_name=user_data["last_name"],
-                email=user_data["email"],
-                role=self.appbuilder.sm.find_role("Public"),
-                password = "test"
-            )
+        # if not user:
+        #     # create an user with the data session
+        #     # and assign to him/her a default role
+        #     user = self.appbuilder.sm.add_user(
+        #         username=user_data["username"],
+        #         first_name=user_data["first_name"],
+        #         last_name=user_data["last_name"],
+        #         email=user_data["email"],
+        #         role=self.appbuilder.sm.find_role("Public"),
+        #         password = "test"
+        #     )
 
         if not user:
             return super(CustomAuthDBView, self).login()
