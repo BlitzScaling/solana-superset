@@ -30,5 +30,6 @@ else
         --timeout ${GUNICORN_TIMEOUT:-60} \
         --limit-request-line 0 \
         --limit-request-field_size 0 \
+        --forwarded-allow-ips="*" \
         "${FLASK_APP}"
 fi
