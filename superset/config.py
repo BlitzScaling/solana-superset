@@ -1241,6 +1241,10 @@ MENU_HIDE_USER_INFO = False
 SQLALCHEMY_DOCS_URL = "https://docs.sqlalchemy.org/en/13/core/engines.html"
 SQLALCHEMY_DISPLAY_TEXT = "SQLAlchemy docs"
 
+SQLALCHEMY_POOL_SIZE = 45
+SQLALCHEMY_MAX_OVERFLOW = 30
+SQLALCHEMY_POOL_TIMEOUT = 180
+
 #let's add our custom security manager
 from superset.security.security import CustomSecurityManager
 CUSTOM_SECURITY_MANAGER = CustomSecurityManager
