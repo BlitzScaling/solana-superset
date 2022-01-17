@@ -373,7 +373,7 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     "DASHBOARD_CROSS_FILTERS": False,
     "DASHBOARD_NATIVE_FILTERS_SET": False,
     "DASHBOARD_FILTERS_EXPERIMENTAL": False,
-    "GLOBAL_ASYNC_QUERIES": False,
+    "GLOBAL_ASYNC_QUERIES": True,
     "VERSIONED_EXPORT": False,
     # Note that: RowLevelSecurityFilter is only given by default to the Admin role
     # and the Admin Role does have the all_datasources security permission.
@@ -1196,7 +1196,7 @@ GLOBAL_ASYNC_QUERIES_REDIS_STREAM_LIMIT_FIREHOSE = 1000000
 GLOBAL_ASYNC_QUERIES_JWT_COOKIE_NAME = "async-token"
 GLOBAL_ASYNC_QUERIES_JWT_COOKIE_SECURE = False
 GLOBAL_ASYNC_QUERIES_JWT_COOKIE_DOMAIN = None
-GLOBAL_ASYNC_QUERIES_JWT_SECRET = "test-secret-change-me"
+GLOBAL_ASYNC_QUERIES_JWT_SECRET = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE2NDIzNzI4NzUsImV4cCI6MTY3MzkwODg3NSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.z7UiXcLZwime_xe23SlWZSJLyTtL74H7jsIQH9r5qx0"
 GLOBAL_ASYNC_QUERIES_TRANSPORT = "polling"
 GLOBAL_ASYNC_QUERIES_POLLING_DELAY = int(
     timedelta(milliseconds=500).total_seconds() * 1000
@@ -1307,3 +1307,11 @@ CACHE_CONFIG: CacheConfig = {
 
 # Cache for datasource metadata and query results
 DATA_CACHE_CONFIG = CACHE_CONFIG
+
+GLOBAL_ASYNC_QUERIES_REDIS_CONFIG = {
+    "port": env('REDIS_PORT'),
+    "host": env('REDIS_HOST'),
+    "password": env('REDIS_PASSWORD'),
+    "db": env('REDIS_DB', 1),
+    "ssl": False,
+}
